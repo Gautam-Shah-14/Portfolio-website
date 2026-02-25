@@ -22,7 +22,7 @@ export default function HeroSection() {
           I'm a <span className="text-primary">Software Engineer</span>
         </h2>
         <p className="mb-5">
-          Currently I'm a Software Engineer at <span className="text-primary">IT idol Technologies</span>
+          Currently working as <span className="text-primary">GenAI Intern at Saint Fox Consultancy</span>
         </p>
         <p className="text-lg text-muted-foreground max-w-xl">
           A passionate AI/ML and Flutter developer with expertise in integrating AI models into applications to solve
