@@ -1,4 +1,3 @@
-import Image from "next/image"
 import AnimateOnScroll from "./animate-on-scroll"
 
 export default function ProjectsSection() {
@@ -30,11 +29,11 @@ export default function ProjectsSection() {
             </div>
           </div>
           <div className="flex-1 flex justify-center transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1">
-            <div className="w-full max-w-sm h-[350px] flex items-center justify-center rounded-xl border border-[rgba(255,127,0,0.3)] hover:shadow-[0_10px_25px_rgba(255,127,0,0.3)] transition-shadow duration-300">
+            <div className="w-full max-w-sm h-[400px] flex items-center justify-center rounded-xl border border-[rgba(255,127,0,0.3)] hover:shadow-[0_10px_25px_rgba(255,127,0,0.3)] transition-shadow duration-300 overflow-hidden">
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/PaperGenie-5gb7ug2B6aaGSItZ0FCaQyxG42kS5V.png"
                 alt="PaperGenie Project"
-                className="w-full h-full object-fit-contain"
+                className="w-full h-full object-fit-contain rounded-xl"
               />
             </div>
           </div>
@@ -62,11 +61,11 @@ export default function ProjectsSection() {
             </div>
           </div>
           <div className="flex-1 flex justify-center transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1">
-            <div className="w-full max-w-sm h-[350px] flex items-center justify-center rounded-xl border border-[rgba(255,127,0,0.3)] hover:shadow-[0_10px_25px_rgba(255,127,0,0.3)] transition-shadow duration-300">
+            <div className="w-full max-w-sm h-[400px] flex items-center justify-center rounded-xl border border-[rgba(255,127,0,0.3)] hover:shadow-[0_10px_25px_rgba(255,127,0,0.3)] transition-shadow duration-300 overflow-hidden">
               <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rvArtboard%201-7YKq01VRy8ABWeMRhhWQhW7SeCgN8K.png"
                 alt="ReVibe Project"
-                className="w-full h-full object-fit-contain"
+                className="w-full h-full object-fit-contain rounded-xl"
               />
             </div>
           </div>
@@ -94,11 +93,11 @@ export default function ProjectsSection() {
           </div>
           <div className="flex-1 flex justify-center transition-transform duration-700 group-hover:scale-105 group-hover:rotate-1">
 
-            <div className="w-full max-w-sm h-[350px] flex items-center justify-center rounded-xl border border-[rgba(255,127,0,0.3)] hover:shadow-[0_10px_25px_rgba(255,127,0,0.3)] transition-shadow duration-300">
+            <div className="w-full max-w-sm h-[400px] flex items-center justify-center rounded-xl border border-[rgba(255,127,0,0.3)] hover:shadow-[0_10px_25px_rgba(255,127,0,0.3)] transition-shadow duration-300 overflow-hidden">
               <img
                 src="/assets/voxsecure-logo.png"
                 alt="VoxSecure Project"
-                className=""
+                className="w-[270px] h-[270px] max-w-full max-h-full object-contain rounded-xl"
               />
             </div>
           </div>
