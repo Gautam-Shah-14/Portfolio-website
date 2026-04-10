@@ -1,3 +1,6 @@
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Gautam-Shah-14/Portfolio-website)
+
 # Gautam Shah Portfolio
 
 A modern portfolio website built with Next.js and Tailwind CSS.
