@@ -15,7 +15,7 @@ export default function ExperienceSection() {
               <Rocket size={24} />
             </div>
             <h3 className="text-2xl font-bold mb-4 min-h-16 leading-snug">GenAI Intern at Saint Fox Consultancy</h3>
-            <p className="text-muted-foreground">Jan 2026 - Present</p>
+            <p className="text-muted-foreground">Jan 2026 - April 2026</p>
           </div>
         </AnimateOnScroll>
 
