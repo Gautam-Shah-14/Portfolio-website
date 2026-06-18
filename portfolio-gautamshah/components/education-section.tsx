@@ -13,7 +13,7 @@ export default function EducationSection() {
               B.Tech. - CSE - Artificial Intelligence
             </h3>
             <p className="mb-2">Parul University | 2022 - 2026</p>
-            <p>CGPA: 7.80 / 10</p>
+            <p>CGPA: 8.05 / 10</p>
           </div>
         </AnimateOnScroll>
         <AnimateOnScroll animation="fade-in-left" delay={400}>
