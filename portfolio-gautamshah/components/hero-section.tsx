@@ -13,25 +13,32 @@ export default function HeroSection() {
   return (
     <section className="py-24 flex flex-col md:flex-row items-center relative">
       <div
-        className={`flex-1 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        className={`flex-1 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
       >
         <h1 className="text-5xl font-bold mb-5">
           Hello! I am <span className="text-primary">Gautam Shah</span>
         </h1>
         <h2 className="text-4xl font-bold mb-5">
-          I'm a <span className="text-primary">Software Engineer</span>
+          I'm a <span className="text-primary">Software Development Engineer</span>
         </h2>
         <p className="mb-5">
-          Currently working as <span className="text-primary">GenAI Intern at Saint Fox Consultancy</span>
+          Currently working as a{" "}
+          <span className="text-primary">
+            Software Development Engineer at Saint Fox Consultancy
+          </span>
         </p>
         <p className="text-lg text-muted-foreground max-w-xl">
-          A passionate AI/ML and Flutter developer with expertise in integrating AI models into applications to solve
-          real-world problems. Skilled in large language models, Firebase, and cross-platform development, I build
-          scalable, user-centric solutions.
+          Software Development Engineer specializing in AI Security, Generative AI
+          and Backend Development. Experienced in building AI-powered
+          applications, integrating Large Language Models (LLMs), developing scalable
+          backend systems with FastAPI. Passionate about creating secure,
+          intelligent, and production-ready solutions that solve real-world challenges.
         </p>
       </div>
       <div
-        className={`flex-1 text-center transition-all duration-1000 delay-300 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+        className={`flex-1 text-center transition-all duration-1000 delay-300 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
       >
         <div className="relative inline-block">
           <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full blur-xl opacity-30 animate-pulse"></div>
