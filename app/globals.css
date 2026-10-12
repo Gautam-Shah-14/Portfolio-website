@@ -1,63 +1,48 @@
-/* Concept C: scrolling flies you forward through a violet tunnel. Each section is a panel floating in depth that you pass through. */
-:root{
-  --ink:#050409;--violet:#8a3ffc;--violet-hi:#b48aff;--lilac:#e4d8ff;--paper:#f6f2ff;--mute:#a69fc0;--card:rgba(14,11,24,.82);--line:rgba(180,138,255,.35);
-  --font-display:"Unbounded","Arial Black",sans-serif;--font-body:"Manrope","Segoe UI",sans-serif;color-scheme:dark;
-}
+:root{--bg:#0b0710;--panel:#140d1f;--line:#2e2342;--text:#efe8ff;--dim:#a99bc7;--violet:#8a3ffc;--lilac:#d6c4ff}
 *{box-sizing:border-box;margin:0}
-html{background:var(--ink)}
-body{background:var(--ink);color:var(--paper);font:400 17px/1.6 var(--font-body);height:1000vh}
-:focus-visible{outline:2px solid var(--violet-hi);outline-offset:3px}
-#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
-.stage{position:fixed;inset:0;perspective:900px;overflow:hidden;pointer-events:none}
-.pn{position:absolute;left:50%;top:50%;width:min(940px,calc(100vw - 32px));max-height:calc(100vh - 140px);translate:-50% -50%;opacity:0;will-change:transform,opacity;visibility:hidden}
-.pn.vis{visibility:visible}
-.pn *{pointer-events:auto}
-h1,h2,h3{font-family:var(--font-display);line-height:1.02;letter-spacing:-.03em}
-.lab{font:600 12px var(--font-body);letter-spacing:.2em;text-transform:uppercase;color:var(--violet-hi)}
-.big{font-size:clamp(46px,11vw,150px);font-weight:800;text-transform:uppercase}
-.big .o{color:transparent;-webkit-text-stroke:2px var(--lilac)}
-.sec{font-size:clamp(34px,6vw,76px);font-weight:800;margin-block:12px 28px;text-transform:uppercase}
-.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,30px);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.lead{color:var(--lilac);max-width:56ch;margin-top:22px}
-.cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
-.btn{display:inline-block;padding:14px 26px;border-radius:999px;background:var(--violet);color:#fff;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-size:16px;transition:transform .2s,background .2s}
-.btn.o{background:transparent;border:2px solid var(--violet-hi)}
-.btn:hover{transform:scale(1.06)}
-.hero-grid{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
-.hero-grid img{width:clamp(90px,16vw,190px);aspect-ratio:1;border-radius:50%;object-fit:cover;border:3px solid var(--violet);box-shadow:0 0 60px rgba(138,63,252,.7)}
-.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px}
-.xp .w{color:var(--violet-hi);font-weight:700;font-size:13px}
-.xp h3{font-size:clamp(17px,2vw,22px);margin-block:10px 6px;font-weight:500}
-.pj{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}
-.pj img{width:150px;height:150px;object-fit:contain;background:var(--lilac);border-radius:14px;padding:8px}
-.pj img.c{object-fit:cover;padding:0}
-.pj h3{font-size:clamp(22px,3vw,34px);font-weight:800;color:var(--violet-hi);margin-bottom:8px}
-.pj p{color:var(--lilac);font-size:16px}
-.tag{display:inline-block;margin:8px 6px 0 0;font-size:12px;padding:3px 11px;border:1px solid var(--violet);border-radius:999px}
-.skw{display:flex;flex-wrap:wrap;gap:12px}
-.skw button{font:700 clamp(15px,2vw,20px) var(--font-display);padding:14px 22px;border-radius:16px;border:2px solid var(--violet);background:var(--card);color:var(--paper);cursor:pointer;transition:transform .2s,background .2s;animation:fl 4s ease-in-out infinite}
-.skw button:nth-child(2n){animation-delay:-1.2s}.skw button:nth-child(3n){animation-delay:-2.4s}
-.skw button:hover,.skw button[aria-pressed="true"]{background:var(--violet);transform:scale(1.08) rotate(-2deg)}
-@keyframes fl{50%{translate:0 -8px}}
-.skd{margin-top:20px;min-height:84px}
-.skd h3{font-size:20px;color:var(--violet-hi);margin-bottom:6px}
-.big-mail{font:800 clamp(20px,4.2vw,52px) var(--font-display);word-break:break-all;color:var(--paper);text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:8px}
-.big-mail:hover{color:var(--violet-hi)}
-
-/* hud */
-.nav{position:fixed;z-index:10;top:calc(14px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding-inline:clamp(14px,3vw,36px);pointer-events:none}
-.logo{font:800 22px var(--font-display);pointer-events:auto;text-decoration:none;color:#fff;background:var(--violet);padding:6px 12px;border-radius:10px}
-.dots{position:fixed;z-index:10;right:clamp(10px,2vw,24px);top:50%;translate:0 -50%;display:flex;flex-direction:column;gap:12px}
-.dots button{width:14px;height:14px;border-radius:50%;border:2px solid var(--violet-hi);background:transparent;cursor:pointer;padding:0;position:relative}
-.dots button.on{background:var(--violet-hi)}
-.dots button span{position:absolute;right:24px;top:50%;translate:0 -50%;font:600 12px var(--font-body);white-space:nowrap;opacity:0;transition:opacity .2s;background:var(--card);padding:3px 10px;border-radius:6px;pointer-events:none}
-.dots button:hover span,.dots button:focus-visible span{opacity:1}
-.prog{position:fixed;left:0;bottom:0;height:5px;background:var(--violet);z-index:10;width:0}
-.hint{position:fixed;z-index:10;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));translate:-50% 0;font:600 12px var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);transition:opacity .4s;text-align:center}
-.speed{position:fixed;z-index:10;left:clamp(14px,3vw,36px);bottom:calc(18px + env(safe-area-inset-bottom,0px));font:600 12px var(--font-body);color:var(--mute);letter-spacing:.14em}
-.speed b{color:var(--violet-hi);font:800 20px var(--font-display)}
-
-@media (max-width:700px){.hero-grid,.pj{grid-template-columns:1fr}.pj img{width:100px;height:100px}.hero-grid img{order:-1}.dots{display:none}.pn{max-height:calc(100vh - 110px);overflow:auto}}
-@media (prefers-reduced-motion:reduce){.skw button{animation:none}}
-
-#gl.nogl{background:radial-gradient(circle at 50% 50%,#2a0f5c,#050409 65%)}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:"Space Grotesk",system-ui,sans-serif}
+.desk canvas{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.title{position:fixed;left:24px;top:20px;z-index:5;pointer-events:none;max-width:min(420px,70vw)}
+.title.hide{opacity:0}
+.title{transition:opacity .3s}
+.title b{font-size:15px;letter-spacing:.02em}
+.title span{display:block;color:var(--dim);font-size:13px;margin-top:2px}
+.hint{font-family:Caveat,cursive;font-size:24px;color:var(--lilac);margin-top:14px;text-shadow:0 1px 8px #000;transform:rotate(-2deg);transform-origin:left}
+.dock{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:9;display:flex;gap:6px;padding:6px;background:rgba(20,13,31,.82);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;max-width:calc(100vw - 20px);overflow-x:auto}
+.dock button{all:unset;cursor:pointer;padding:9px 14px;border-radius:9px;font-size:14px;color:var(--dim);white-space:nowrap}
+.dock button:hover,.dock button:focus-visible{background:#241838;color:var(--text)}
+.dock button.on{background:var(--violet);color:#fff}
+.tip{position:fixed;z-index:7;pointer-events:none;background:#f4efff;color:#1a1026;padding:6px 10px;border-radius:7px;font-size:13px;max-width:260px;opacity:0;transition:opacity .12s;transform:translate(14px,14px)}
+.tip.show{opacity:1}
+.tip small{display:block;color:#5b4a78;margin-top:2px}
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(480px,100vw);z-index:8;background:var(--panel);border-left:1px solid var(--line);padding:28px 26px 90px;overflow:auto;transform:translateX(102%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.panel.open{transform:none}
+.panel h2.sub{font-size:22px;margin-top:26px}
+.panel h2{font-size:30px;line-height:1.1;margin:6px 0 4px}
+.panel .eyebrow{font-family:Caveat,cursive;color:var(--lilac);font-size:24px}
+.panel .x{all:unset;cursor:pointer;position:absolute;right:16px;top:14px;width:36px;height:36px;border-radius:50%;text-align:center;line-height:36px;font-size:20px;color:var(--dim)}
+.panel .x:hover{background:#241838;color:#fff}
+.panel p{color:#cfc4e6;line-height:1.6;font-size:15px;margin:10px 0}
+.card{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:16px 0;background:#190f28}
+.card .img{height:150px;display:flex;align-items:center;justify-content:center}
+.card .img img{width:100%;height:100%}
+.card .body{padding:14px 16px 16px}
+.card h3{font-size:19px}.card .kind{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tags span{font-size:12px;padding:3px 9px;border:1px solid var(--rule,#3a2c57);border-radius:99px;color:var(--lilac)}
+.job{border-left:2px solid var(--violet);padding:2px 0 2px 16px;margin:20px 0}
+.job h3{font-size:17px}.job .when{color:var(--dim);font-size:13px;margin:2px 0 6px}
+.job li{color:#cfc4e6;font-size:14px;line-height:1.55;margin:6px 0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+.chips button{all:unset;cursor:pointer;padding:6px 12px;border-radius:99px;border:1px solid var(--line);font-size:13px;color:var(--dim)}
+.chips button.on{background:var(--violet);border-color:var(--violet);color:#fff}
+.sk{padding:10px 0;border-bottom:1px solid var(--line)}
+.sk b{font-size:15px}.sk i{font-style:normal;float:right;font-size:12px;color:var(--dim)}
+.sk p{font-size:13.5px;margin:4px 0 0}
+.link{display:flex;justify-content:space-between;gap:10px;padding:14px 16px;margin:10px 0;border:1px solid var(--line);border-radius:12px;color:var(--text);text-decoration:none;background:#190f28}
+.link:hover{border-color:var(--violet)}.link span{color:var(--dim)}
+.edu{padding:16px;border:1px solid var(--line);border-radius:12px;margin:14px 0;background:#190f28}
+.edu b{display:block;font-size:16px}.edu span{color:var(--dim);font-size:13.5px}
+.btn{display:inline-block;margin-top:10px;padding:8px 14px;border-radius:9px;background:var(--violet);color:#fff;text-decoration:none;font-size:14px}
+@media(max-width:700px){.panel{top:auto;height:78vh;width:100%;border-left:0;border-top:1px solid var(--line);border-radius:18px 18px 0 0;transform:translateY(102%)}.panel.open{transform:none}.title{left:16px}.hint{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.panel{transition:none}}

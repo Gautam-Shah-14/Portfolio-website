@@ -1,18 +1,18 @@
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Gautam-Shah-14/Portfolio-website)
 
-# Gautam Shah Portfolio: Tunnel Flight
+# Gautam Shah Portfolio: Gautam's Desk
 
-Scroll to fly through a 3D tunnel.
+A 3D desk where every object opens a section.
 
-Scrolling flies you forward through a violet 3D tunnel. Each section is a panel floating in depth that you pass through. The pointer steers the tunnel and a click sends a pulse through it.
+The portfolio is a dark, violet-lit 3D desk. The laptop shows the projects, the notebook holds the about text and work history, sticky notes on a wall board are the skills, the stack of books is education and the coffee mug is contact. Clicking an object moves the camera to it and opens a panel.
 
 ## Features
 
-- Scroll-driven camera with panels placed in depth (CSS 3D) over a Three.js tunnel
-- Pointer steering and click pulses
-- Navigation dots, progress bar and a depth readout
-- Skills as clickable floating chips
-- Plain gradient background when WebGL is unavailable
+- Clickable 3D objects: laptop (projects), notebook (about and experience), sticky notes (skills), books (education), mug (contact)
+- 19 sticky notes generated from `lib/data.ts`, color-coded by category, lifting on hover; filter chips dim the notes outside the chosen category
+- Camera that drifts with the pointer and glides to each object, with the scene shifted aside while the panel is open
+- Desk lamp you can switch off and on, steam from the mug, drifting dust, a neon sign
+- Bottom button bar so every section is reachable by keyboard, touch or screen reader; Escape closes the panel
 
 ## Tech stack
 
@@ -36,9 +36,9 @@ Requires Node.js 18.18 or newer.
 
 ```
 app/                layout (fonts, metadata), global styles, the page
-components/flight/
-  flight.tsx   page shell and the animation loop (updates styles through refs)
-  tunnel.ts    Three.js tunnel, shards and stars
+components/desk/
+  desk.tsx     page shell: button bar, tooltip, side panel
+  scene.ts     Three.js desk scene, canvas textures and camera (framework-free)
   panels.tsx   the section panels
 lib/data.ts         all portfolio content
 public/assets/      images
@@ -72,15 +72,16 @@ The app lives at the repository root.
 
 ## Notes
 
-The page is tall on purpose (the scroll distance is the flight path). Respects `prefers-reduced-motion`.
+Respects `prefers-reduced-motion` (no steam, dust or screen blink, and the camera jumps instead of gliding). The laptop screen, notes, notebook and book spines are drawn on canvases, so edit the text in `lib/data.ts` and they update. Fonts are Caveat and Space Grotesk, loaded from Google Fonts in `app/layout.tsx`.
 
 ## Other designs
 
 This repository keeps each design on its own branch. Click a branch to open it on GitHub and use the branch selector to switch. Merge only one into `main`:
 
+- [`design/desk`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/design/desk): a 3D desk where each object opens a section (this branch)
 - [`design/drive-world`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/design/drive-world): drive a 3D car to each section
 - [`design/gs-os`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/design/gs-os): a tiny desktop OS with a terminal
-- [`design/tunnel-flight`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/design/tunnel-flight): scroll to fly through a 3D tunnel (this branch)
+- [`design/tunnel-flight`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/design/tunnel-flight): scroll to fly through a 3D tunnel
 - [`ai/ask-gautam`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/ai/ask-gautam): chat with a retrieval assistant and a 3D vector space
 - [`ai/break-the-guard`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/ai/break-the-guard): jailbreak a layered guardrail, AI-security portfolio
 - [`ai/neural-net`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/ai/neural-net): an explorable 3D neural network

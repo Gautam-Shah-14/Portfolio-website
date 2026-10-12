@@ -1,5 +1,5 @@
-import Flight from "@/components/flight/flight"
+import DeskPage from "@/components/desk/desk"
 
 export default function Home() {
-  return <Flight />
+  return <DeskPage />
 }
