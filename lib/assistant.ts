@@ -40,6 +40,14 @@ function splitParts(q: string): string[] {
   return parts.length ? parts.slice(0, 3) : [q.trim()]
 }
 
+function optionFor(h: Hit): string {
+  if (h.chunk.id === "strengths") return "What is he strong at?"
+  if (h.chunk.id === "about") return "Who is Gautam?"
+  if (h.chunk.id.startsWith("exp-")) return `Tell me about his ${h.chunk.title.replace(" (past)", "")} role`
+  if (h.chunk.id.startsWith("skills-")) return `What are his ${h.chunk.title.toLowerCase()}?`
+  return `Tell me about ${h.chunk.title}`
+}
+
 const firstSentence = (s: string) => {
   const clean = s.replace(/\*\*/g, "")
   const m = clean.match(/^.{20,220}?[.!?](\s|$)/)
@@ -51,6 +59,8 @@ interface PartResult {
   hits: Hit[]
   kinds: string[]
   weak: boolean
+  /** weak only because it is a follow-up: offer options without saying the question was unclear */
+  quiet?: boolean
 }
 
 function answerPart(index: Index, part: string, ctx: Context, evidenceById: (id: string) => Hit | null): PartResult {
@@ -79,6 +89,7 @@ function answerPart(index: Index, part: string, ctx: Context, evidenceById: (id:
           hits: next,
           kinds,
           weak: true,
+          quiet: true,
         }
       }
     }
@@ -170,12 +181,12 @@ export function respond(index: Index, raw: string, ctx: Context): Reply {
 
   let options: string[] = []
   if (anyWeak) {
-    const fromHits = allHits.slice(0, 3).map((h) => `Tell me about ${h.chunk.title}`)
+    const fromHits = allHits.slice(0, 3).map((h) => optionFor(h))
     options = [...fromHits, ...DEFAULT_OPTIONS].filter((o, i, a) => a.indexOf(o) === i).slice(0, 4)
     if (!anyAnswer) {
       blocks.length = 0
       blocks.push("I only know about Gautam's work, and I couldn't tell what you were asking. Could you rephrase, or pick one of these?")
-    } else {
+    } else if (results.some((r) => r.weak && !r.quiet)) {
       blocks.push("I'm not fully sure I understood the question. If I missed, pick one of these:")
     }
   }
