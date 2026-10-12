@@ -9,7 +9,7 @@ The portfolio is a dark, violet-lit 3D desk. The laptop shows the projects, the 
 ## Features
 
 - Clickable 3D objects: laptop (projects), notebook (about and experience), sticky notes (skills), books (education), mug (contact)
-- 19 sticky notes generated from `lib/data.ts`, color-coded by category, lifting on hover; filter chips dim the notes outside the chosen category
+- One sticky note per skill, generated from `lib/data.ts`, color-coded by category, lifting on hover; filter chips dim the notes outside the chosen category
 - Camera that drifts with the pointer and glides to each object, with the scene shifted aside while the panel is open
 - Desk lamp you can switch off and on, steam from the mug, drifting dust, a neon sign
 - Bottom button bar so every section is reachable by keyboard, touch or screen reader; Escape closes the panel
