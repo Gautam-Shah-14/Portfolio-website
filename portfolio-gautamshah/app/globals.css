@@ -33,23 +33,11 @@ body {
   .section-title {
     @apply text-3xl font-bold mb-12 relative;
   }
-
-  .highlight {
-    @apply text-primary;
-  }
-
-  .secondary-highlight {
-    @apply text-secondary;
-  }
 }
 
 @layer utilities {
   .animation-delay-300 {
     animation-delay: 300ms;
-  }
-
-  .animation-delay-500 {
-    animation-delay: 500ms;
   }
 
   .animation-delay-700 {
@@ -67,14 +55,6 @@ body {
 
   .fade-in-left {
     animation: fadeInLeft 1s ease forwards;
-  }
-
-  .zoom-in {
-    animation: zoomIn 1s ease forwards;
-  }
-
-  .bounce-in {
-    animation: bounceIn 1s ease forwards;
   }
 
   @keyframes fadeInUp {
@@ -107,34 +87,6 @@ body {
     to {
       opacity: 1;
       transform: translateX(0);
-    }
-  }
-
-  @keyframes zoomIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes bounceIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.3);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.05);
-    }
-    70% {
-      transform: scale(0.9);
-    }
-    100% {
-      transform: scale(1);
     }
   }
 }

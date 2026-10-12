@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { navLinks } from "@/lib/data"
 
 export default function Header() {
   return (
@@ -10,41 +11,18 @@ export default function Header() {
       </Link>
       <nav>
         <ul className="flex list-none">
-          <li className="ml-8">
-            <Link
-              href="/"
-              className="text-white no-underline transition-all duration-300 hover:text-primary hover:translate-y-[-2px] inline-block"
-            >
-              Home
-            </Link>
-          </li>
-          <li className="ml-8">
-            <Link
-              href="#projects"
-              className="text-white no-underline transition-all duration-300 hover:text-primary hover:translate-y-[-2px] inline-block"
-            >
-              Projects
-            </Link>
-          </li>
-          <li className="ml-8">
-            <Link
-              href="#skills"
-              className="text-white no-underline transition-all duration-300 hover:text-primary hover:translate-y-[-2px] inline-block"
-            >
-              Skills
-            </Link>
-          </li>
-          <li className="ml-8">
-            <Link
-              href="#contact"
-              className="text-white no-underline transition-all duration-300 hover:text-primary hover:translate-y-[-2px] inline-block"
-            >
-              Contact
-            </Link>
-          </li>
+          {navLinks.map(({ label, href }) => (
+            <li key={href} className="ml-8">
+              <Link
+                href={href}
+                className="text-white no-underline transition-all duration-300 hover:text-primary hover:translate-y-[-2px] inline-block"
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>
   )
 }
-

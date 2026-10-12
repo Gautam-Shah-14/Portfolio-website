@@ -20,7 +20,7 @@ export default function HeroSection() {
           Hello! I am <span className="text-primary">Gautam Shah</span>
         </h1>
         <h2 className="text-4xl font-bold mb-5">
-          I'm a <span className="text-primary">Software Development Engineer</span>
+          I&apos;m a <span className="text-primary">Software Development Engineer</span>
         </h2>
         <p className="mb-5">
           Currently working as a{" "}

@@ -1,4 +1,6 @@
 import AnimateOnScroll from "./animate-on-scroll"
+import Card from "./card"
+import { education } from "@/lib/data"
 
 export default function EducationSection() {
   return (
@@ -7,26 +9,16 @@ export default function EducationSection() {
         <h2 className="section-title">Education</h2>
       </AnimateOnScroll>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <AnimateOnScroll animation="fade-in-right" delay={200}>
-          <div className="bg-muted rounded-xl p-8 h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_25px_rgba(255,127,0,0.2)]">
-            <h3 className="text-xl md:text-2xl font-bold mb-4 leading-snug min-h-14">
-              B.Tech. - CSE - Artificial Intelligence
-            </h3>
-            <p className="mb-2">Parul University | 2022 - 2026</p>
-            <p>CGPA: 8.05 / 10</p>
-          </div>
-        </AnimateOnScroll>
-        <AnimateOnScroll animation="fade-in-left" delay={400}>
-          <div className="bg-muted rounded-xl p-8 h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_25px_rgba(255,127,0,0.2)]">
-            <h3 className="text-xl md:text-2xl font-bold mb-4 leading-snug min-h-14">
-              1-Year Diploma in Native Mobile Application Development
-            </h3>
-            <p className="mb-2">Parul University | 2023 - 2024</p>
-            <p>CGPA: 7.30 / 10</p>
-          </div>
-        </AnimateOnScroll>
+        {education.map(({ title, institution, cgpa }, index) => (
+          <AnimateOnScroll key={title} animation="fade-in-right" delay={200 * (index + 1)}>
+            <Card>
+              <h3 className="text-xl md:text-2xl font-bold mb-4 leading-snug min-h-14">{title}</h3>
+              <p className="mb-2">{institution}</p>
+              <p>CGPA: {cgpa}</p>
+            </Card>
+          </AnimateOnScroll>
+        ))}
       </div>
     </section>
   )
 }
-
