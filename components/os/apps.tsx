@@ -15,7 +15,7 @@ export function About({ open }: { open: (id: AppId) => void }) {
             {profile.firstName} <em>{profile.lastName}</em>
           </h1>
           <span className="when">
-            ● online · {profile.role} @ {profile.company}
+            ● online · {profile.headline} @ {profile.company}
           </span>
         </div>
       </div>
@@ -43,6 +43,11 @@ export function Experience() {
           <span className="when">{e.period}</span>
           <h2>{e.role}</h2>
           <p>{e.company}</p>
+          {e.highlights.map((h) => (
+            <p key={h} style={{ fontSize: 13, color: "var(--mute)" }}>
+              {h}
+            </p>
+          ))}
         </div>
       ))}
     </>
@@ -64,6 +69,13 @@ export function Projects() {
                 {t}
               </span>
             ))}
+            {p.link && (
+              <p style={{ marginTop: 8 }}>
+                <a href={p.link} target="_blank" rel="noopener noreferrer">
+                  {p.link.replace("https://", "")} ↗
+                </a>
+              </p>
+            )}
           </div>
         </div>
       ))}
