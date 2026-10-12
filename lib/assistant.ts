@@ -103,7 +103,7 @@ function answerPart(index: Index, part: string, ctx: Context, evidenceById: (id:
     let hits = topicQuery ? search(index, topicQuery, 3).filter((h) => h.sim >= 0.5) : []
     const generic = hits.length === 0
     if (generic) {
-      hits = ["strengths", "exp-0", "proj-storyburners"].map(evidenceById).filter((h): h is Hit => !!h)
+      hits = ["strengths", "exp-0", "proj-voxsecure"].map(evidenceById).filter((h): h is Hit => !!h)
     }
     const bullets = hits.slice(0, 3).map((h) => `• ${firstSentence(h.chunk.evidence ?? h.chunk.answer)}`)
     const text = [
@@ -160,7 +160,7 @@ export function respond(index: Index, raw: string, ctx: Context): Reply {
   const compare = COMPARE.test(text)
   const results = parts.map((p) => answerPart(index, p, ctx, byId))
   if (compare && !results.some((r) => r.text)) {
-    const hits = ["strengths", "exp-0", "proj-storyburners"].map(byId).filter((h): h is Hit => !!h)
+    const hits = ["strengths", "exp-0", "proj-voxsecure"].map(byId).filter((h): h is Hit => !!h)
     results[0] = { text: hits.map((h) => `• ${firstSentence(h.chunk.evidence ?? h.chunk.answer)}`).join("\n"), hits, kinds: [], weak: false }
   }
   const kinds = [...new Set(results.flatMap((r) => r.kinds)), ...(compare ? ["comparison request"] : []), ...(parts.length > 1 ? [`${parts.length} questions`] : [])]

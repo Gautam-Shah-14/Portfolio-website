@@ -28,7 +28,7 @@ export function buildKnowledge(): Chunk[] {
       title: "Strengths and track record",
       topic: 0,
       keywords: "strengths strong good best capable capability capable able ability handle handling heavy complex hard difficult tasks track record reliable production scale ship shipping end-to-end full-stack workflow quality",
-      answer: `He ships complete products end to end, from database and API through to the interface. He builds backend services and integrations that he tests against live systems, runs a live product with real payments (StoryBurners), and reviews AI-generated code against real behavior, rebuilding a component from scratch when the first version proves unreliable.`,
+      answer: `He ships complete products end to end, from database and API through to the interface. He builds backend services and integrations that he tests against live systems, and reviews AI-generated code against real behavior, rebuilding a component from scratch when the first version proves unreliable.`,
       evidence: "Ships complete products end to end, from database and API through to the interface.",
     },
     {
