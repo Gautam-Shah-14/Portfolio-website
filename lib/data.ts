@@ -46,16 +46,16 @@ export const projects = [
     description:
       "PaperGenie is my solo-developed educational app that automates custom question paper creation using AI. Now integrating the Retrieval-Augmented Generation (RAG) framework for improved accuracy and better contextual understanding of generated questions. It generates exams based on topics, marks, and difficulty levels. With Firebase Authentication and cloud storage, the app offers a secure and scalable solution for educators.",
     badges: ["⚛️", "🔥"],
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/PaperGenie-5gb7ug2B6aaGSItZ0FCaQyxG42kS5V.png",
-    imageClassName: "w-full h-full",
+    image: "/assets/papergenie.png",
+    imageClassName: "w-full h-full object-cover",
   },
   {
     name: "ReVibe",
     description:
       "ReVibe is a mental wellness app integrating AI-driven mood tracking, gamification, and personalized tasks to enhance focus and resilience. Users earn Vibe Coins for completing wellness activities, redeemable for valuable resources. The app also offers professional support and peer forums. I contribute to development, UI/UX, AI/ML, and documentation.",
     badges: ["📱", "🔥"],
-    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/rvArtboard%201-7YKq01VRy8ABWeMRhhWQhW7SeCgN8K.png",
-    imageClassName: "w-full h-full",
+    image: "/assets/revibe.jpg",
+    imageClassName: "w-full object-contain bg-[#dccbff]",
   },
   {
     name: "VoxSecure",

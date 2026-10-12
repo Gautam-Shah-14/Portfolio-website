@@ -43,7 +43,7 @@ export default function HeroSection() {
         <div className="relative inline-block">
           <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full blur-xl opacity-30 animate-pulse"></div>
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Avatar-udxerhqIiwPIOf2iVrbCPhRzWGpGRB.png"
+            src="/assets/avatar.png"
             alt="Gautam Shah Avatar"
             width={400}
             height={400}
