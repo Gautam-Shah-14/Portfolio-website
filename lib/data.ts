@@ -9,7 +9,7 @@ export const profile = {
   intro:
     "I ship complete products, from database and API through to the interface, with a focus on secure AI: LLM apps, MCP servers and clients, and backends that hold up in production.",
   about:
-    "Backend-leaning full-stack engineer who ships complete products, from database and API through to the interface. Software Development Engineer at Saint Fox Consultancy since June 2026, building backend services and integrations for an enterprise software product. Founder of TokenBurners, a product studio with a live product (StoryBurners) on Next.js, Node.js and PostgreSQL. I work AI-native with Claude Code: I read the code it generates, check it against live systems and test results, and fix weak output before it ships.",
+    "Backend-leaning full-stack engineer who ships complete products, from database and API through to the interface. Software Development Engineer at Saint Fox Consultancy since June 2026, building backend services and integrations for an enterprise software product. I work AI-native with Claude Code: I read the code it generates, check it against live systems and test results, and fix weak output before it ships.",
   avatar: "/assets/avatar.png",
 }
 
@@ -91,28 +91,6 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  {
-    name: "StoryBurners",
-    kind: "Live product",
-    description:
-      "A live story generator. You pick a category, tone and idea count, select one idea, and get a full script sized to a chosen duration. Real-topic mode runs a web search first, token usage and cost are tracked per generation, and payments run through Razorpay.",
-    tags: ["Next.js", "Node.js", "Supabase", "Groq", "Razorpay"],
-    image: "/assets/storyburners.svg",
-    background: "#8a3ffc",
-    fit: "contain",
-    link: "https://storyburners.tokenburners.co.in",
-  },
-  {
-    name: "TokenBurners Studio",
-    kind: "Studio site",
-    description:
-      "The studio site for TokenBurners, my product studio, built and launched on its own domain with schema markup, per-service landing pages, llms.txt and a sitemap. Four rounds of SEO and AI-search audits raised its audit score from 64 to 81 out of 100.",
-    tags: ["Next.js", "Vercel", "SEO", "llms.txt"],
-    image: "/assets/tokenburners.svg",
-    background: "#8a3ffc",
-    fit: "contain",
-    link: "https://tokenburners.co.in",
-  },
   {
     name: "VoxSecure",
     kind: "Security",
