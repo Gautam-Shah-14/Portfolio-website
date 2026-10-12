@@ -2,12 +2,16 @@
 
 # Gautam Shah Portfolio
 
-Personal portfolio built with Next.js (App Router) and TypeScript.
+Personal portfolio built with Next.js (App Router), TypeScript and Three.js.
+
+**Design: Break the Guard.** An AI-security portfolio. Visitors try to jailbreak a layered guardrail (rule-based simulation) and the allowed questions are answered by a validated retrieval assistant. Content comes from `lib/data.ts`.
 
 ## Structure
 
 - `app/` - routes, layout and global styles
-- `components/` - React components
+- `components/guard/` - arena, 3D shield and page sections
+- `lib/guard.ts` - the three guardrail layers
+- `lib/assistant.ts`, `lib/retrieval.ts`, `lib/knowledge.ts` - question validation (typos, ambiguity, capability and loaded questions) and retrieval
 - `lib/data.ts` - all portfolio content (experience, projects, skills, education, contact)
 - `public/assets/` - images
 
