@@ -2,12 +2,15 @@
 
 # Gautam Shah Portfolio
 
-Personal portfolio built with Next.js (App Router) and TypeScript.
+Personal portfolio built with Next.js (App Router), TypeScript and Three.js.
+
+**Design: Ask Gautam.** The portfolio is a chat with a retrieval-augmented assistant. Answers come from knowledge chunks built from `lib/data.ts`, and a 3D vector space shows each search.
 
 ## Structure
 
 - `app/` - routes, layout and global styles
-- `components/` - React components
+- `components/chat/` - chat UI and the 3D vector space
+- `lib/knowledge.ts`, `lib/retrieval.ts` - knowledge chunks and the retriever
 - `lib/data.ts` - all portfolio content (experience, projects, skills, education, contact)
 - `public/assets/` - images
 

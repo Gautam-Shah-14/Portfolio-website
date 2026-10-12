@@ -1,93 +1,65 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: 0 0% 0%;
-  --foreground: 0 0% 100%;
-  --card: 0 0% 7%;
-  --card-foreground: 0 0% 100%;
-  --popover: 0 0% 7%;
-  --popover-foreground: 0 0% 100%;
-  --primary: 30 100% 50%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 60 100% 50%;
-  --secondary-foreground: 0 0% 0%;
-  --muted: 0 0% 7%;
-  --muted-foreground: 0 0% 80%;
-  --accent: 30 100% 50%;
-  --accent-foreground: 0 0% 100%;
-  --destructive: 0 100% 50%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 20%;
-  --input: 0 0% 20%;
-  --ring: 30 100% 50%;
-  --radius: 0.5rem;
+/* Concept E: the portfolio is a chat with a retrieval-augmented assistant. The right panel shows the vector space it searches. */
+:root{
+  --bg:#07060b;--panel:#0f0c18;--panel-2:#161225;--line:#2a2340;--violet:#8a3ffc;--violet-hi:#b48aff;--lilac:#e4d8ff;--paper:#f4f0ff;--mute:#9a92b5;--hit:#7dffc4;
+  --font:"Geist","Segoe UI",system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,Menlo,monospace;color-scheme:dark;
 }
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);color:var(--paper);font:400 15px/1.6 var(--font)}
+body{display:flex;flex-direction:column;overflow:hidden}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--violet-hi);outline-offset:2px;border-radius:6px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px clamp(14px,3vw,28px);border-bottom:1px solid var(--line);padding-top:calc(12px + env(safe-area-inset-top,0px))}
+.brand{display:flex;align-items:center;gap:12px}
+.brand img{width:36px;height:36px;border-radius:50%;border:2px solid var(--violet);object-fit:cover}
+.brand b{font-weight:600;font-size:16px}
+.brand span{display:block;font:400 12px var(--mono);color:var(--mute)}
+.badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.badge{font:500 12px var(--mono);padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--mute)}
+.badge i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--hit);margin-right:6px;box-shadow:0 0 8px var(--hit)}
+.main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.chat{display:flex;flex-direction:column;min-height:0;border-right:1px solid var(--line)}
+.msgs{flex:1;overflow-y:auto;padding:clamp(14px,3vw,28px);display:flex;flex-direction:column;gap:22px;scroll-behavior:smooth}
+.msg{max-width:min(680px,100%);animation:in .35s ease both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.msg.u{align-self:flex-end;background:var(--violet);color:#fff;padding:10px 16px;border-radius:18px 18px 4px 18px}
+.msg.a .who{font:500 12px var(--mono);color:var(--violet-hi);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.msg.a .who img{width:20px;height:20px;border-radius:50%}
+.msg.a .body{color:var(--lilac)}
+.msg.a .body p+p{margin-top:10px}
+.msg.a .body b{color:var(--paper)}
+.steps{font:400 12px var(--mono);color:var(--mute);display:grid;gap:3px;margin-bottom:12px;padding:10px 12px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.steps div{display:flex;gap:8px}
+.steps .ok{color:var(--hit)}
+.srcs{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.src{font:500 12px var(--mono);padding:4px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--lilac);cursor:pointer}
+.src:hover{border-color:var(--hit);color:var(--hit)}
+.src em{font-style:normal;color:var(--mute);margin-left:6px}
+.cursor{display:inline-block;width:7px;height:15px;background:var(--violet-hi);vertical-align:-2px;animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.sugg{display:flex;gap:8px;flex-wrap:wrap;padding:0 clamp(14px,3vw,28px) 12px}
+.sugg button{font:400 13px var(--font);padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--panel);cursor:pointer;transition:all .15s}
+.sugg button:hover{border-color:var(--violet);background:var(--panel-2)}
+form{display:flex;gap:10px;padding:0 clamp(14px,3vw,28px) calc(clamp(14px,3vw,24px) + env(safe-area-inset-bottom,0px))}
+form input{flex:1;min-width:0;background:var(--panel);border:1px solid var(--line);color:var(--paper);padding:14px 18px;border-radius:14px;font:inherit}
+form input::placeholder{color:var(--mute)}
+form input:focus{outline:none;border-color:var(--violet)}
+form button{background:var(--violet);border:0;color:#fff;font-weight:600;padding:0 22px;border-radius:14px;cursor:pointer}
+form button:disabled{opacity:.5;cursor:default}
 
-body {
-  @apply bg-black text-white;
+.space{position:relative;min-height:0;display:flex;flex-direction:column}
+.space h2{font:500 12px var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:.1em;padding:16px 20px 0}
+.space p.sub{font-size:13px;color:var(--mute);padding:4px 20px 0}
+#gl{flex:1;min-height:0;width:100%;display:block;cursor:grab;touch-action:pan-y}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:10px 20px 16px;font:400 12px var(--mono);color:var(--mute)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.tip{position:absolute;pointer-events:none;background:var(--panel-2);border:1px solid var(--violet);padding:4px 10px;border-radius:8px;font:500 12px var(--mono);opacity:0;transition:opacity .12s;white-space:nowrap;translate:-50% -130%}
+@media (max-width:860px){
+  .main{grid-template-columns:1fr;grid-template-rows:200px minmax(0,1fr)}
+  .space{order:-1;border-bottom:1px solid var(--line)}
+  .space h2,.space p.sub,.legend{display:none}
+  .chat{border-right:0}
+  .badges .badge:not(:first-child){display:none}
 }
-
-@layer components {
-  .section-title {
-    @apply text-3xl font-bold mb-12 relative;
-  }
-}
-
-@layer utilities {
-  .animation-delay-300 {
-    animation-delay: 300ms;
-  }
-
-  .animation-delay-700 {
-    animation-delay: 700ms;
-  }
-
-  /* Animation classes */
-  .fade-in-up {
-    animation: fadeInUp 1s ease forwards;
-  }
-
-  .fade-in-right {
-    animation: fadeInRight 1s ease forwards;
-  }
-
-  .fade-in-left {
-    animation: fadeInLeft 1s ease forwards;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes fadeInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+.msg.a .body a{color:var(--violet-hi)}
 
