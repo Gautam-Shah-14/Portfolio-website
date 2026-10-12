@@ -157,8 +157,6 @@ export const PANELS: PanelDef[] = [
   { name: projects[0].name, render: () => <ProjectPanel index={0} /> },
   { name: projects[1].name, render: () => <ProjectPanel index={1} /> },
   { name: projects[2].name, render: () => <ProjectPanel index={2} /> },
-  { name: projects[3].name, render: () => <ProjectPanel index={3} /> },
-  { name: projects[4].name, render: () => <ProjectPanel index={4} /> },
   { name: "Skills", render: () => <SkillsPanel /> },
   { name: "Contact", render: () => <ContactPanel /> },
 ]
