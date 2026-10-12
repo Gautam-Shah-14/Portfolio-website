@@ -20,7 +20,7 @@ export default function HeroSection() {
           Hello! I am <span className="text-primary">Gautam Shah</span>
         </h1>
         <h2 className="text-4xl font-bold mb-5">
-          I'm a <span className="text-primary">Software Development Engineer</span>
+          I&apos;m a <span className="text-primary">Software Development Engineer</span>
         </h2>
         <p className="mb-5">
           Currently working as a{" "}
@@ -43,7 +43,7 @@ export default function HeroSection() {
         <div className="relative inline-block">
           <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full blur-xl opacity-30 animate-pulse"></div>
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Avatar-udxerhqIiwPIOf2iVrbCPhRzWGpGRB.png"
+            src="/assets/avatar.png"
             alt="Gautam Shah Avatar"
             width={400}
             height={400}

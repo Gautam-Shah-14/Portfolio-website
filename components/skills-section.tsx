@@ -1,70 +1,12 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-
-interface Skill {
-  name: string
-  icon: string
-  category: string
-  description: string
-}
+import { skillCategories, skills, type Skill } from "@/lib/data"
 
 export default function SkillsSection() {
   const [activeSkill, setActiveSkill] = useState<Skill | null>(null)
   const [activeCategory, setActiveCategory] = useState<string>("all")
   const containerRef = useRef<HTMLDivElement>(null)
-
-  const skills: Skill[] = [
-    {
-      name: "Artificial Intelligence",
-      icon: "🤖",
-      category: "ai",
-      description: "Building advanced AI systems and integrating them into practical applications.",
-    },
-    {
-      name: "Machine Learning",
-      icon: "🧠",
-      category: "ai",
-      description: "Creating predictive models and training algorithms for complex problems.",
-    },
-    {
-      name: "Deep Learning",
-      icon: "⚙️",
-      category: "ai",
-      description: "Building neural networks for image recognition and advanced pattern detection.",
-    },
-    {
-      name: "Flutter",
-      icon: "📱",
-      category: "development",
-      description: "Developing cross-platform mobile applications with beautiful UI/UX.",
-    },
-    {
-      name: "Firebase",
-      icon: "🔥",
-      category: "development",
-      description: "Implementing backend services with authentication, storage, and real-time databases.",
-    },
-    {
-      name: "FastAPI",
-      icon: "🚀",
-      category: "development",
-      description: "Building high-performance APIs with automatic interactive documentation.",
-    },
-    {
-      name: "UI/UX Design",
-      icon: "🎨",
-      category: "design",
-      description: "Creating intuitive user interfaces with focus on user experience.",
-    },
-  ]
-
-  const categories = [
-    { id: "all", name: "All Skills" },
-    { id: "ai", name: "AI & ML" },
-    { id: "development", name: "Development" },
-    { id: "design", name: "Design" },
-  ]
 
   const filteredSkills = activeCategory === "all" ? skills : skills.filter((skill) => skill.category === activeCategory)
 
@@ -109,7 +51,7 @@ export default function SkillsSection() {
       >
         {/* Category tabs */}
         <div className="flex flex-wrap gap-2 mb-10">
-          {categories.map((category) => (
+          {skillCategories.map((category) => (
             <button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
@@ -128,7 +70,7 @@ export default function SkillsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredSkills.map((skill, index) => (
             <div
-              key={index}
+              key={skill.name}
               className={`p-5 rounded-xl border transition-all duration-300 ${
                 activeSkill === skill
                   ? "bg-[rgba(255,127,0,0.1)] border-primary"
