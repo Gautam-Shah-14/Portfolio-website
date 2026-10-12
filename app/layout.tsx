@@ -1,18 +1,20 @@
 import type { Metadata, Viewport } from "next"
 import type React from "react"
 import "./globals.css"
+import { site } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: "Ask Gautam | Software Development Engineer",
+  metadataBase: new URL(site.url),
+  title: "Gautam Shah | Ask my AI",
   description:
-    "Portfolio of Gautam Shah, presented as a chat with a retrieval-augmented assistant. Ask about projects, MCP servers, skills and experience.",
+    "Portfolio of Gautam Shah, a backend-leaning full-stack engineer building secure AI products. Ask the AI assistant, or plug the portfolio into your own AI through MCP.",
 }
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#07060b",
+  themeColor: "#07060d",
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -24,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap"
         />
       </head>
       <body>{children}</body>

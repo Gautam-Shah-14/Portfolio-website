@@ -1,18 +1,19 @@
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Gautam-Shah-14/Portfolio-website)
 
-# Gautam Shah Portfolio: Ask Gautam
+# Gautam Shah Portfolio: Ask my AI + MCP server
 
-The portfolio as a chat with a retrieval-augmented assistant.
+An AI-style portfolio that is also a real MCP server.
 
-The portfolio is a chat. Visitors ask questions and a retrieval assistant answers from knowledge chunks built from `lib/data.ts`. A 3D vector space beside the chat shows every search: the question lands in the cloud and pulls in its nearest chunks.
+A polished AI-product look: a glowing 3D orb that reacts while the assistant thinks and speaks, a prompt bar, and a validated retrieval assistant that answers from the portfolio data. The site is also a real Model Context Protocol server at `/mcp`, so Claude or any MCP client can connect and ask about Gautam. A live inspector on the page talks to that endpoint.
 
 ## Features
 
-- Retrieval over knowledge chunks (about, experience, projects, skill groups, education, contact)
-- Question validation before searching: fixes typos, handles vague or loaded wording, capability questions (answered with evidence and honest limits), multi-part questions, comparisons, private details and prompt-injection attempts
-- Clickable follow-up options when a question is unclear, and context for follow-ups like "tell me more"
-- Streaming answers with visible steps and source chips with similarity scores
-- Draggable 3D vector space that highlights the retrieved chunks
+- Chat-first hero: shader orb, streaming answers with visible steps and sources, clickable follow-ups
+- Question validation before searching: typos, vague or loaded wording, capability questions, multi-part questions, comparisons, private details and prompt-injection attempts
+- Real MCP server at `/mcp` (Streamable HTTP, JSON-RPC 2.0, stateless) with 8 read-only tools, 3 resources and 1 prompt
+- Live MCP inspector on the page: connect, pick a tool, call it and read the raw JSON-RPC wire log
+- Copy-paste connection snippets for Claude Code, Claude Desktop and any client
+- Sections for projects, skills (filterable), experience, education and contact
 
 ## Tech stack
 
@@ -36,14 +37,20 @@ Requires Node.js 18.18 or newer.
 
 ```
 app/                layout (fonts, metadata), global styles, the page
-components/chat/
-  chat.tsx          chat UI, streaming and suggestions
-  vector-space.ts   Three.js vector-space view
-  rich-text.tsx     **bold** rendering
+app/mcp/route.ts       the MCP endpoint (POST, plus CORS and 405 handling)
+components/ai/
+  home.tsx          page shell and navigation
+  hero.tsx          orb, prompt bar and conversation
+  orb.ts            Three.js shader orb
+  use-assistant.ts  streaming assistant hook
+  mcp-panel.tsx     connection snippets and live inspector
+  sections.tsx      projects, skills, experience, contact
 lib/
-  assistant.ts      question validation and answer composition
-  retrieval.ts      index, typo correction and the retriever
-  knowledge.ts      knowledge chunks generated from data.ts
+  mcp/server.ts     JSON-RPC handling, tools, resources, prompts
+  mcp/rate-limit.ts best-effort per-IP limiter
+  site.ts           the site URL and MCP path
+  assistant.ts, retrieval.ts, knowledge.ts   validated retrieval assistant
+  guard.ts          guardrail used by the check_prompt_safety tool
 lib/data.ts         all portfolio content
 public/assets/      images
 ```
@@ -51,6 +58,46 @@ public/assets/      images
 ## Editing the content
 
 Everything visible comes from `lib/data.ts`: profile, contact details, experience, education, projects and skills. Edit that one file and every part of the page (and the assistant's knowledge, where there is one) updates. Project images go in `public/assets/` and are referenced from `data.ts`. Colours are CSS variables at the top of `app/globals.css`.
+
+## The MCP server
+
+Endpoint: `https://gautam-shah-portfolio.vercel.app/mcp` (set the address in `lib/site.ts`).
+
+Connect a client:
+
+```bash
+# Claude Code
+claude mcp add --transport http gautam-portfolio https://gautam-shah-portfolio.vercel.app/mcp
+```
+
+```json
+// Claude Desktop (claude_desktop_config.json), through the mcp-remote bridge
+{ "mcpServers": { "gautam-portfolio": { "command": "npx", "args": ["-y", "mcp-remote", "https://gautam-shah-portfolio.vercel.app/mcp"] } } }
+```
+
+| Kind | Name | What it does |
+| --- | --- | --- |
+| Tool | `get_profile` | Headline, role, location, summary |
+| Tool | `list_projects`, `get_project` | Projects, and one in detail |
+| Tool | `search_skills` | Keyword and category search over skills |
+| Tool | `list_experience`, `list_education` | Experience with highlights, degrees |
+| Tool | `ask_about_gautam` | Free-text question through the validated retrieval assistant |
+| Tool | `check_prompt_safety` | Three-layer guardrail verdict and scores for a prompt |
+| Resource | `portfolio://profile`, `portfolio://skills`, `portfolio://contact` | Markdown, JSON and text |
+| Prompt | `recruiter_summary` | A recruiter brief, optionally for a role |
+
+Try it locally with `npm run dev`, then:
+
+```bash
+curl -s -X POST http://localhost:3000/mcp -H 'Content-Type: application/json'   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+```
+
+Notes:
+
+- Transport is Streamable HTTP in stateless JSON mode. `GET` returns 405, because the server never starts its own streams.
+- It is read-only and public. There is no login and nothing private is exposed.
+- A best-effort limiter allows 60 requests per minute per IP. On serverless hosting each instance keeps its own counter, so treat it as a brake and not a guarantee.
+- CORS is open (`*`) so browser-based clients and inspectors can call it.
 
 ## Deploying to Vercel
 
@@ -68,7 +115,7 @@ The app lives at the repository root.
 
 ## Notes
 
-The assistant is rule-based and runs entirely in the browser. It is not a live language model, so it only answers from what is in `lib/data.ts`.
+The assistant is rule-based and runs in the browser; it is not a live language model. The MCP server is read-only and serves only the public data in `lib/data.ts`. See the MCP section above for details.
 
 ## Other designs
 
@@ -77,7 +124,8 @@ This repository keeps each design on its own branch. Merge only one into `main`:
 - `design/drive-world`
 - `design/gs-os`
 - `design/tunnel-flight`
-- `ai/ask-gautam` (this branch)
+- `ai/ask-gautam`
 - `ai/break-the-guard`
 - `ai/neural-net`
+- `ai/mcp-server` (this branch)
 
