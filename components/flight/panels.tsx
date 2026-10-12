@@ -24,6 +24,13 @@ function ProjectPanel({ index }: { index: number }) {
               {t}
             </span>
           ))}
+          {p.link && (
+            <p style={{ marginTop: 12 }}>
+              <a href={p.link} target="_blank" rel="noopener noreferrer" style={{ color: "var(--violet-hi)" }}>
+                {p.link.replace("https://", "")} ↗
+              </a>
+            </p>
+          )}
         </div>
       </div>
     </>
@@ -107,7 +114,7 @@ export const PANELS: PanelDef[] = [
     render: (go) => (
       <div className="hero-grid">
         <div>
-          <span className="lab">{profile.role}</span>
+          <span className="lab">{profile.headline}</span>
           <h1 className="big" style={{ marginTop: 14 }}>
             {profile.firstName}
             <br />
@@ -118,7 +125,7 @@ export const PANELS: PanelDef[] = [
             <button className="btn" onClick={() => go(2)}>
               Fly in
             </button>
-            <button className="btn o" onClick={() => go(6)}>
+            <button className="btn o" onClick={() => go(PANELS.length - 1)}>
               Contact
             </button>
           </div>
@@ -140,6 +147,7 @@ export const PANELS: PanelDef[] = [
               <span className="w">{e.period}</span>
               <h3>{e.role}</h3>
               <p>{e.company}</p>
+              <p style={{ fontSize: 14, marginTop: 8, color: "var(--mute)" }}>{e.highlights[0]}</p>
             </div>
           ))}
         </div>
@@ -149,6 +157,8 @@ export const PANELS: PanelDef[] = [
   { name: projects[0].name, render: () => <ProjectPanel index={0} /> },
   { name: projects[1].name, render: () => <ProjectPanel index={1} /> },
   { name: projects[2].name, render: () => <ProjectPanel index={2} /> },
+  { name: projects[3].name, render: () => <ProjectPanel index={3} /> },
+  { name: projects[4].name, render: () => <ProjectPanel index={4} /> },
   { name: "Skills", render: () => <SkillsPanel /> },
   { name: "Contact", render: () => <ContactPanel /> },
 ]
