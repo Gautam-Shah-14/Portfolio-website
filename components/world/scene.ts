@@ -160,7 +160,7 @@ export function createWorld(canvas: HTMLCanvasElement, opts: WorldOptions): Worl
         g.fillText("SHAH", 512, 330)
         g.fillStyle = "#a79fc0"
         g.font = "34px Outfit, sans-serif"
-        g.fillText("SOFTWARE DEVELOPMENT ENGINEER", 512, 390)
+        g.fillText("FULL-STACK ENGINEER (BACKEND-LEANING)", 512, 390)
       }),
     }),
   )

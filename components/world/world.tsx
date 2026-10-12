@@ -131,7 +131,7 @@ export default function World() {
             <em>{profile.name}</em>
           </h1>
           <p>
-            {profile.role} building secure AI products. This portfolio is a tiny world.{" "}
+            {profile.headline} building secure AI products. This portfolio is a tiny world.{" "}
             {webgl ? "Drive to a station to open it, or use the menu up top." : "3D is not available in this browser, but every section is in the menu."}
           </p>
           <button className="go" onClick={start}>

@@ -20,6 +20,11 @@ function Work() {
           <span className="when">{e.period}</span>
           <h3>{e.role}</h3>
           <p>{e.company}</p>
+          {e.highlights.map((h) => (
+            <p key={h} style={{ marginTop: 6, fontSize: 14, color: "var(--mute)" }}>
+              {h}
+            </p>
+          ))}
         </div>
       ))}
     </>
@@ -45,6 +50,11 @@ function Projects() {
               <span key={t}>{t}</span>
             ))}
           </div>
+          {p.link && (
+            <a className="btn" target="_blank" rel="noopener noreferrer" href={p.link} style={{ marginTop: 12 }}>
+              Visit live ↗
+            </a>
+          )}
         </div>
       ))}
     </>
