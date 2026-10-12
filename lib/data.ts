@@ -158,6 +158,7 @@ export const skills: Skill[] = [
   { name: "SQLite & Redis queues", category: "data", description: "Lightweight storage with SQLite and background jobs with Redis queues (BullMQ)." },
   { name: "Next.js & React", category: "frontend", description: "Full-stack web apps and sites with Next.js, React and TypeScript." },
   { name: "Flutter & Dart", category: "frontend", description: "Cross-platform mobile apps with Flutter and Dart, backed by Firebase." },
+  { name: "Streamlit", category: "frontend", description: "Building interactive Python front ends for data and AI apps with Streamlit." },
   { name: "Vercel & Render", category: "deploy", description: "Shipping and hosting web apps and services on Vercel and Render." },
   { name: "Azure Linux VM", category: "deploy", description: "Running services on an Azure Linux VM with nginx and pm2." },
   { name: "Razorpay payments", category: "deploy", description: "Taking payments in production with Razorpay." },
