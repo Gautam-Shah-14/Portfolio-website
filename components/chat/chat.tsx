@@ -3,7 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { profile } from "@/lib/data"
 import { buildKnowledge, type Chunk } from "@/lib/knowledge"
-import { buildIndex, search, type Hit } from "@/lib/retrieval"
+import { respond, type Context } from "@/lib/assistant"
+import { buildIndex, type Hit } from "@/lib/retrieval"
 import RichText from "./rich-text"
 import { createVectorSpace, type VectorSpace } from "./vector-space"
 
@@ -14,6 +15,8 @@ interface AiMessage {
   /** words revealed so far, joined */
   text: string
   hits: Hit[]
+  options: string[]
+  links: { label: string; href: string }[]
   done: boolean
 }
 interface UserMessage {
@@ -26,17 +29,14 @@ type Message = AiMessage | UserMessage
 const SUGGESTIONS = [
   "What does Gautam do?",
   "Has he built MCP servers?",
-  "Tell me about PaperGenie",
-  "Any experience with RAG?",
+  "Is he capable of handling heavy tasks?",
+  "Tell me about StoryBurners",
   "What are his skills?",
   "How can I contact him?",
 ]
 
 const GREETING =
-  "Hi, I'm Gautam's portfolio assistant. Ask me anything about his **projects, MCP work, skills, experience or education**. I answer from a small knowledge base indexed in your browser, and you can watch the search happen on the right."
-
-const NO_MATCH =
-  "I only know about Gautam's work, so I can't answer that one. Try asking about his **projects**, **MCP servers and clients**, **skills**, **experience** or **education**."
+  "Hi, I'm Gautam's portfolio assistant. Ask me anything about his **projects, MCP work, skills, experience or education**. Typos, vague or loaded questions are fine, I'll check what you mean first. I answer from a small knowledge base indexed in your browser, and you can watch the search happen on the right."
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
@@ -51,6 +51,7 @@ export default function Chat() {
   const spaceRef = useRef<VectorSpace | null>(null)
   const listRef = useRef<HTMLDivElement>(null)
   const nextId = useRef(0)
+  const context = useRef<Context>({ lastIds: [] })
   const alive = useRef(true)
   const reduce = useRef(false)
 
@@ -91,26 +92,26 @@ export default function Chat() {
     setMessages((ms) => [
       ...ms,
       { id: userId, role: "user", text },
-      { id: aiId, role: "ai", steps: [], text: "", hits: [], done: false },
+      { id: aiId, role: "ai", steps: [], text: "", hits: [], options: [], links: [], done: false },
     ])
 
-    const hits = search(index, text)
-    const steps = [
-      "embedding your question",
-      `searching ${chunks.length} chunks by similarity`,
-      hits.length ? `retrieved ${hits.length} chunk${hits.length > 1 ? "s" : ""}, writing answer` : "no relevant chunk found",
-    ]
+    const reply = respond(index, text, context.current)
+    context.current = { lastIds: reply.hits.map((h) => h.chunk.id) }
+    const hits = reply.hits
+    const steps = [reply.steps[0]]
+    if (hits.length) {
+      steps.push("embedding your question", `searching ${chunks.length} chunks by similarity`, `retrieved ${hits.length} chunk${hits.length > 1 ? "s" : ""}, writing answer`)
+    }
     const delay = reduce.current ? 0 : 420
     for (let i = 0; i < steps.length; i++) {
       if (!alive.current) return
       patch(aiId, { steps: steps.slice(0, i + 1) })
-      if (i === 1) spaceRef.current?.setHits(hits.map((h) => ({ id: h.chunk.id, rel: h.rel })))
+      if (i === 2) spaceRef.current?.setHits(hits.map((h) => ({ id: h.chunk.id, rel: h.rel })))
       await wait(delay)
     }
+    if (!hits.length) spaceRef.current?.setHits([])
 
-    const answer = hits.length
-      ? [hits[0].chunk.answer, hits[1] && hits[1].rel >= 0.8 ? hits[1].chunk.answer : ""].filter(Boolean).join("\n\n")
-      : NO_MATCH
+    const answer = reply.text
     const words = answer.split(/(\s+)/)
     if (reduce.current) {
       patch(aiId, { text: answer })
@@ -121,7 +122,7 @@ export default function Chat() {
         await wait(28)
       }
     }
-    patch(aiId, { text: answer, hits, done: true })
+    patch(aiId, { text: answer, hits, options: reply.options, links: reply.links, done: true })
     setBusy(false)
   }
 
@@ -184,23 +185,33 @@ export default function Chat() {
                   </div>
                   <div className="body">
                     {m.text.split("\n\n").map((para, i) => (
-                      <p key={i}>
+                      <p key={i} style={{ whiteSpace: "pre-line" }}>
                         <RichText text={para} />
                       </p>
                     ))}
                     {!m.done && m.text && <span className="cursor" />}
-                    {m.done &&
-                      m.hits
-                        .filter((h) => h.chunk.links)
-                        .flatMap((h) => h.chunk.links!)
-                        .map((l) => (
-                          <p key={l.href}>
+                    {m.done && m.links.length > 0 && (
+                      <p>
+                        {m.links.map((l, i) => (
+                          <span key={l.href}>
+                            {i > 0 && " · "}
                             <a href={l.href} target="_blank" rel="noopener noreferrer">
                               {l.label}
                             </a>
-                          </p>
+                          </span>
                         ))}
+                      </p>
+                    )}
                   </div>
+                  {m.done && m.options.length > 0 && (
+                    <div className="sugg" style={{ padding: "12px 0 0" }}>
+                      {m.options.map((o) => (
+                        <button type="button" key={o} onClick={() => ask(o)} disabled={busy}>
+                          {o}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                   {m.done && (
                     <div className="srcs">
                       {m.hits.map((h) => (

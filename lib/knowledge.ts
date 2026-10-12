@@ -8,18 +8,28 @@ export interface Chunk {
   keywords: string
   /** answer text, **double asterisks** mark bold */
   answer: string
+  /** one-line evidence used when someone asks what he is capable of */
+  evidence?: string
   links?: { label: string; href: string }[]
 }
 
-/** Every chunk is derived from lib/data.ts, so the chat never drifts from the rest of the site. */
+/** Every chunk is derived from lib/data.ts, so the assistant never drifts from the rest of the site. */
 export function buildKnowledge(): Chunk[] {
   const chunks: Chunk[] = [
     {
       id: "about",
       title: "About",
       topic: 0,
-      keywords: "who gautam about introduce summary do work engineer profile mcp",
-      answer: `I'm a **${profile.role}** at ${profile.company}. ${profile.about}`,
+      keywords: "who gautam about introduce summary do work engineer profile mcp full-stack backend founder location pune remote",
+      answer: `I'm a **${profile.headline}**, currently ${profile.role} at ${profile.company}, based in ${profile.location}. ${profile.about}`,
+    },
+    {
+      id: "strengths",
+      title: "Strengths and track record",
+      topic: 0,
+      keywords: "strengths strong good best capable capability capable able ability handle handling heavy complex hard difficult tasks track record reliable production scale ship shipping end-to-end full-stack workflow quality",
+      answer: `He ships complete products end to end, from database and API through to the interface. He builds backend services and integrations that he tests against live systems, runs a live product with real payments (StoryBurners), and reviews AI-generated code against real behavior, rebuilding a component from scratch when the first version proves unreliable.`,
+      evidence: "Ships complete products end to end, from database and API through to the interface.",
     },
     {
       id: "interests",
@@ -35,18 +45,21 @@ export function buildKnowledge(): Chunk[] {
       id: `exp-${i}`,
       title: `${e.role}${e.current ? "" : " (past)"}`,
       topic: 1,
-      keywords: `experience job work role current intern internship employer company career ${e.role} ${e.company} ${e.period}`,
-      answer: `**${e.role}** at **${e.company}**, ${e.period}.`,
+      keywords: `experience job work role current intern internship employer company career ${e.role} ${e.company} ${e.period} ${e.highlights.join(" ")}`,
+      answer: `**${e.role}** at **${e.company}**, ${e.period}. ${e.highlights.join(" ")}`,
+      evidence: `${e.role} at ${e.company} (${e.period}): ${e.highlights[0]}`,
     }),
   )
 
   projects.forEach((p) =>
     chunks.push({
-      id: `proj-${p.name.toLowerCase()}`,
+      id: `proj-${p.name.toLowerCase().replace(/\W+/g, "-")}`,
       title: p.name,
       topic: 2,
-      keywords: `project built portfolio ${p.name} ${p.kind} ${p.tags.join(" ")} ${p.description}`,
-      answer: `**${p.name}**: ${p.description}`,
+      keywords: `project built portfolio product ${p.name} ${p.kind} ${p.tags.join(" ")} ${p.description}`,
+      answer: `**${p.name}** (${p.kind}): ${p.description}${p.link ? ` Live at ${p.link.replace("https://", "")}.` : ""}`,
+      evidence: `${p.name} (${p.kind}): ${p.description.split(". ")[0]}.`,
+      links: p.link ? [{ label: `${p.name} live`, href: p.link }] : undefined,
     }),
   )
 
@@ -58,8 +71,9 @@ export function buildKnowledge(): Chunk[] {
         id: `skills-${f.id}`,
         title: `${f.label} skills`,
         topic: 3,
-        keywords: `skills stack technical tools technology ${f.label} ${group.map((s) => `${s.name} ${s.description}`).join(" ")}`,
+        keywords: `skills stack technical tools technology languages ${f.label} ${group.map((s) => `${s.name} ${s.description}`).join(" ")}`,
         answer: group.map((s) => `**${s.name}**: ${s.description}`).join(" "),
+        evidence: `${f.label}: ${group.map((s) => s.name).join(", ")}.`,
       })
     })
 
@@ -77,11 +91,12 @@ export function buildKnowledge(): Chunk[] {
     id: "contact",
     title: "Contact",
     topic: 5,
-    keywords: "contact email phone reach hire linkedin github connect message mail call talk opportunities",
-    answer: `Email: **${contact.email}** · Phone: **${contact.phone}**. ${contact.note}`,
+    keywords: "contact email phone reach hire linkedin github leetcode connect message mail call talk opportunities location remote pune",
+    answer: `Email: **${contact.email}** · Phone: **${contact.phone}** · Based in ${contact.location}. ${contact.note}`,
     links: [
       { label: "LinkedIn", href: contact.linkedin },
       { label: "GitHub", href: contact.github },
+      { label: "LeetCode", href: contact.leetcode },
     ],
   })
 
