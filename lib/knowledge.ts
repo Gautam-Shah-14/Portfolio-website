@@ -20,7 +20,7 @@ export function buildKnowledge(): Chunk[] {
       id: "about",
       title: "About",
       topic: 0,
-      keywords: "who gautam about introduce summary do work engineer profile mcp full-stack backend founder location pune remote",
+      keywords: "who gautam about introduce summary do work engineer profile mcp full-stack backend location pune remote",
       answer: `I'm a **${profile.headline}**, currently ${profile.role} at ${profile.company}, based in ${profile.location}. ${profile.about}`,
     },
     {
