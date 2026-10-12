@@ -78,6 +78,7 @@ The page is tall on purpose (the scroll distance is the flight path). Respects `
 
 This repository keeps each design on its own branch. Click a branch to open it on GitHub and use the branch selector to switch. Merge only one into `main`:
 
+- [`design/desk`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/design/desk): a 3D desk where each object opens a section
 - [`design/drive-world`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/design/drive-world): drive a 3D car to each section
 - [`design/gs-os`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/design/gs-os): a tiny desktop OS with a terminal
 - [`design/tunnel-flight`](https://github.com/Gautam-Shah-14/Portfolio-website/tree/design/tunnel-flight): scroll to fly through a 3D tunnel (this branch)
