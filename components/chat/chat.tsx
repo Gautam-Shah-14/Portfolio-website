@@ -30,7 +30,7 @@ const SUGGESTIONS = [
   "What does Gautam do?",
   "Has he built MCP servers?",
   "Is he capable of handling heavy tasks?",
-  "Tell me about StoryBurners",
+  "Tell me about VoxSecure",
   "What are his skills?",
   "How can I contact him?",
 ]
