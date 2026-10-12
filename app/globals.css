@@ -1,93 +1,88 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: 0 0% 0%;
-  --foreground: 0 0% 100%;
-  --card: 0 0% 7%;
-  --card-foreground: 0 0% 100%;
-  --popover: 0 0% 7%;
-  --popover-foreground: 0 0% 100%;
-  --primary: 30 100% 50%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 60 100% 50%;
-  --secondary-foreground: 0 0% 0%;
-  --muted: 0 0% 7%;
-  --muted-foreground: 0 0% 80%;
-  --accent: 30 100% 50%;
-  --accent-foreground: 0 0% 100%;
-  --destructive: 0 100% 50%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 20%;
-  --input: 0 0% 20%;
-  --ring: 30 100% 50%;
-  --radius: 0.5rem;
+/* Concept B: the portfolio is a tiny operating system. Icons open draggable windows, there is a working terminal and a 3D viewer. */
+:root{
+  --ink:#06050a;--panel:#100d1a;--panel-2:#191328;--violet:#8a3ffc;--violet-hi:#b48aff;--lilac:#e4d8ff;--paper:#f6f2ff;--mute:#9d94b8;--line:#33294f;--ok:#7dffb0;
+  --font-ui:"Pixelify Sans","Courier New",monospace;--font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;color-scheme:dark;
 }
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font:400 14px/1.6 var(--font-mono)}
+button{font:inherit;color:inherit}
+a{color:var(--violet-hi)}
+:focus-visible{outline:2px dashed var(--violet-hi);outline-offset:2px}
 
-body {
-  @apply bg-black text-white;
+/* wallpaper */
+.wall{position:fixed;inset:0;background:radial-gradient(70% 60% at 70% 20%,rgba(138,63,252,.28),transparent 60%),var(--ink);overflow:hidden}
+.wall::before{content:"";position:absolute;inset:-50% -20% 0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;transform:perspective(500px) rotateX(65deg);transform-origin:50% 100%;animation:fl 6s linear infinite;mask-image:linear-gradient(to top,#000 20%,transparent 80%);-webkit-mask-image:linear-gradient(to top,#000 20%,transparent 80%)}
+@keyframes fl{to{background-position:0 60px}}
+.crt{position:fixed;inset:0;pointer-events:none;z-index:900;background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.12) 3px);mix-blend-mode:multiply}
+.wm{position:fixed;right:28px;bottom:70px;font:700 clamp(48px,9vw,120px)/.9 var(--font-ui);text-align:right;color:transparent;-webkit-text-stroke:2px rgba(138,63,252,.5);pointer-events:none;user-select:none}
+
+/* icons */
+.icons{position:fixed;left:16px;top:16px;display:grid;grid-template-columns:repeat(2,92px);gap:14px 8px;z-index:5}
+.icon{background:none;border:0;cursor:pointer;text-align:center;padding:8px 2px;border-radius:8px;color:var(--paper);display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px}
+.icon:hover,.icon:focus-visible{background:rgba(138,63,252,.25)}
+.icon .g{width:52px;height:52px;display:grid;place-items:center;background:var(--panel-2);border:2px solid var(--violet);border-radius:10px;font:700 24px var(--font-ui);color:var(--violet-hi);box-shadow:3px 3px 0 var(--violet)}
+
+/* windows */
+.win{position:fixed;display:none;flex-direction:column;background:var(--panel);border:2px solid var(--violet);box-shadow:8px 8px 0 rgba(138,63,252,.55);border-radius:6px;min-width:300px;max-width:calc(100vw - 16px);max-height:calc(100vh - 64px);overflow:hidden}
+.win.open{display:flex;animation:pop .22s cubic-bezier(.2,.9,.3,1.3)}
+@keyframes pop{from{transform:scale(.85);opacity:0}}
+.win .bar{display:flex;align-items:center;gap:8px;padding:6px 10px;background:linear-gradient(90deg,var(--violet),#5b21b6);cursor:grab;user-select:none;touch-action:none;font:600 15px var(--font-ui);color:#fff}
+.win .bar:active{cursor:grabbing}
+.win .bar .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.win .bar button{width:22px;height:22px;border:2px solid #fff;background:transparent;border-radius:3px;cursor:pointer;line-height:1;font:700 12px var(--font-ui);display:grid;place-items:center}
+.win .bar button:hover{background:#fff;color:var(--violet)}
+.win .body{padding:20px;overflow:auto;flex:1}
+.win.focus{box-shadow:10px 10px 0 var(--violet)}
+.win h1{font:700 clamp(30px,5vw,48px)/1 var(--font-ui);margin-bottom:10px}
+.win h1 em{font-style:normal;color:var(--violet-hi)}
+.win h2{font:600 22px var(--font-ui);color:var(--violet-hi);margin-bottom:6px}
+.win p{color:var(--lilac);margin-bottom:10px}
+.win .row{padding-block:14px;border-top:1px dashed var(--line)}
+.win .row:first-child{border-top:0;padding-top:0}
+.when{color:var(--ok);font-size:12px}
+.tag{display:inline-block;border:1px solid var(--violet);padding:1px 8px;margin:4px 6px 0 0;font-size:12px}
+.btn{display:inline-block;border:2px solid var(--violet);padding:8px 14px;margin:6px 8px 0 0;text-decoration:none;background:var(--panel-2);color:var(--paper);cursor:pointer;font-weight:500}
+.btn:hover{background:var(--violet)}
+.proj{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start}
+.proj img{width:120px;height:120px;object-fit:contain;background:var(--lilac);border:2px solid var(--violet);padding:6px}
+.proj img.cover{object-fit:cover;padding:0}
+.avwrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.avwrap img{width:96px;height:96px;border-radius:50%;border:3px solid var(--violet);object-fit:cover}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabs button{border:2px solid var(--violet);background:transparent;padding:4px 12px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--violet)}
+.cv{display:block;width:100%;height:260px;border:2px solid var(--line);background:#000;cursor:grab;touch-action:none}
+.hint{color:var(--mute);font-size:12px;margin-top:8px}
+
+/* terminal */
+.term{background:#000;color:var(--ok);font:400 14px/1.55 var(--font-mono);height:300px;overflow:auto;padding:12px;white-space:pre-wrap;word-break:break-word}
+.term .p{color:var(--violet-hi)}
+.term .in{display:flex;gap:8px}
+.term input{flex:1;background:transparent;border:0;color:var(--ok);font:inherit;outline:none;min-width:0}
+.term a{color:var(--lilac)}
+
+/* taskbar */
+.task{position:fixed;left:0;right:0;bottom:0;height:46px;background:var(--panel-2);border-top:2px solid var(--violet);display:flex;align-items:center;gap:8px;padding:0 8px;z-index:800}
+.task .start{background:var(--violet);border:0;color:#fff;font:700 16px var(--font-ui);padding:6px 14px;cursor:pointer;border-radius:4px}
+.task .apps{display:flex;gap:6px;flex:1;overflow-x:auto}
+.task .apps button{background:var(--panel);border:2px solid var(--line);padding:3px 12px;cursor:pointer;white-space:nowrap;font-size:13px}
+.task .apps button.on{border-color:var(--violet);background:var(--violet)}
+.clock{font:600 15px var(--font-ui);color:var(--violet-hi);padding-inline:8px}
+.menu{position:fixed;left:8px;bottom:54px;background:var(--panel);border:2px solid var(--violet);box-shadow:6px 6px 0 rgba(138,63,252,.5);display:none;z-index:850;min-width:210px}
+.menu.open{display:block}
+.menu button{display:block;width:100%;text-align:left;background:none;border:0;padding:10px 16px;cursor:pointer}
+.menu button:hover{background:var(--violet)}
+
+/* boot */
+.boot{position:fixed;inset:0;background:#000;z-index:1000;padding:28px;color:var(--ok);font:400 14px/1.7 var(--font-mono);white-space:pre-wrap;transition:opacity .5s;overflow:hidden}
+.boot.off{opacity:0;pointer-events:none}
+.boot b{color:var(--violet-hi)}
+.boot .skip{position:absolute;right:20px;bottom:20px;background:none;border:2px solid var(--violet);color:var(--paper);padding:6px 14px;cursor:pointer}
+
+@media (max-width:700px){
+  .win{left:8px!important;right:8px;top:8px!important;width:auto!important;max-height:calc(100vh - 62px)}
+  .icons{grid-template-columns:repeat(3,1fr);left:8px;right:8px;gap:10px 4px}
+  .proj{grid-template-columns:1fr}
+  .wm{display:none}
 }
-
-@layer components {
-  .section-title {
-    @apply text-3xl font-bold mb-12 relative;
-  }
-}
-
-@layer utilities {
-  .animation-delay-300 {
-    animation-delay: 300ms;
-  }
-
-  .animation-delay-700 {
-    animation-delay: 700ms;
-  }
-
-  /* Animation classes */
-  .fade-in-up {
-    animation: fadeInUp 1s ease forwards;
-  }
-
-  .fade-in-right {
-    animation: fadeInRight 1s ease forwards;
-  }
-
-  .fade-in-left {
-    animation: fadeInLeft 1s ease forwards;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes fadeInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-}
-
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}

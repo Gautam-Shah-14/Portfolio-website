@@ -2,12 +2,14 @@
 
 # Gautam Shah Portfolio
 
-Personal portfolio built with Next.js (App Router) and TypeScript.
+Personal portfolio built with Next.js (App Router), TypeScript and Three.js.
+
+**Design: GS OS.** The portfolio is a tiny operating system. Icons open draggable windows, there is a working terminal (`help` lists the commands) and a 3D viewer.
 
 ## Structure
 
 - `app/` - routes, layout and global styles
-- `components/` - React components
+- `components/os/` - desktop shell, window frame, apps, terminal and 3D viewer
 - `lib/data.ts` - all portfolio content (experience, projects, skills, education, contact)
 - `public/assets/` - images
 
