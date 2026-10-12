@@ -80,4 +80,5 @@ This repository keeps each design on its own branch. Merge only one into `main`:
 - `ai/ask-gautam`
 - `ai/break-the-guard` (this branch)
 - `ai/neural-net`
+- `ai/mcp-server`
 
