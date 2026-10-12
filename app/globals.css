@@ -1,93 +1,53 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: 0 0% 0%;
-  --foreground: 0 0% 100%;
-  --card: 0 0% 7%;
-  --card-foreground: 0 0% 100%;
-  --popover: 0 0% 7%;
-  --popover-foreground: 0 0% 100%;
-  --primary: 30 100% 50%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 60 100% 50%;
-  --secondary-foreground: 0 0% 0%;
-  --muted: 0 0% 7%;
-  --muted-foreground: 0 0% 80%;
-  --accent: 30 100% 50%;
-  --accent-foreground: 0 0% 100%;
-  --destructive: 0 100% 50%;
-  --destructive-foreground: 0 0% 100%;
-  --border: 0 0% 20%;
-  --input: 0 0% 20%;
-  --ring: 30 100% 50%;
-  --radius: 0.5rem;
+/* Concept G: the portfolio is a neural network. Education feeds experience, which feeds skills, projects and finally contact. Click any node. */
+:root{
+  --bg:#05040a;--panel:rgba(14,11,24,.9);--line:#2a2342;--violet:#8a3ffc;--violet-hi:#b48aff;--lilac:#e4d8ff;--paper:#f5f1ff;--mute:#9a92b6;--hot:#ff7ad9;
+  --font:"Sora","Segoe UI",sans-serif;--mono:"Fira Code",ui-monospace,monospace;color-scheme:dark;
 }
-
-body {
-  @apply bg-black text-white;
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);color:var(--paper);font:400 15px/1.6 var(--font);overflow:hidden}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--violet-hi);outline-offset:2px;border-radius:6px}
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+#gl.drag{cursor:grabbing}
+.hud{position:fixed;z-index:5;pointer-events:none}
+.title{left:clamp(16px,3vw,40px);top:calc(clamp(16px,3vw,32px) + env(safe-area-inset-top,0px));max-width:min(560px,60vw)}
+.title .lab{font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--violet-hi)}
+.title h1{font-size:clamp(34px,5.6vw,72px);font-weight:800;line-height:1;margin-block:12px;letter-spacing:-.03em}
+.title h1 em{font-style:normal;background:linear-gradient(100deg,var(--violet-hi),var(--hot));-webkit-background-clip:text;background-clip:text;color:transparent}
+.title p{color:var(--lilac);max-width:46ch;font-size:15px}
+.btns{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;pointer-events:auto}
+.btn{padding:11px 20px;border-radius:10px;border:1px solid var(--violet);background:var(--violet);font:600 14px var(--font);cursor:pointer;transition:transform .15s}
+.btn.o{background:rgba(5,4,10,.6)}.btn:hover{transform:translateY(-2px)}
+.stats{left:clamp(16px,3vw,40px);bottom:calc(clamp(16px,3vw,28px) + env(safe-area-inset-bottom,0px));font:400 12px var(--mono);color:var(--mute);display:grid;gap:3px}
+.stats b{color:var(--lilac);font-weight:500}
+.stats .loss{color:var(--hot)}
+.layers{right:clamp(16px,3vw,40px);top:calc(clamp(16px,3vw,32px) + env(safe-area-inset-top,0px));display:grid;gap:8px;pointer-events:auto;justify-items:end}
+.layers button{font:500 12px var(--mono);padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--panel);cursor:pointer;text-align:right;transition:all .15s}
+.layers button:hover,.layers button.on{border-color:var(--violet-hi);background:rgba(138,63,252,.25)}
+.layers small{display:block;color:var(--mute);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.drag-hint{left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));translate:-50% 0;font:400 12px var(--mono);color:var(--mute);text-align:center}
+.card{position:fixed;z-index:10;right:clamp(12px,3vw,40px);bottom:calc(clamp(12px,3vw,32px) + env(safe-area-inset-bottom,0px));width:min(430px,calc(100vw - 24px));max-height:min(62vh,560px);overflow:auto;background:var(--panel);border:1px solid var(--violet);border-radius:18px;padding:22px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 20px 60px rgba(0,0,0,.6);animation:in .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+.card .lab{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--violet-hi)}
+.card h2{font-size:clamp(20px,2.4vw,26px);font-weight:800;margin-block:8px 6px;line-height:1.15}
+.card .meta{font:400 12px var(--mono);color:var(--hot);margin-bottom:10px}
+.card p{color:var(--lilac)}
+.card img{width:100%;height:150px;border-radius:12px;margin-bottom:12px;object-position:center}
+.card .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.card .tags span{font:400 11px var(--mono);padding:3px 9px;border-radius:6px;border:1px solid var(--line)}
+.card .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.card .acts a,.card .acts button{font:600 13px var(--font);padding:9px 16px;border-radius:10px;border:1px solid var(--violet);background:var(--violet);text-decoration:none;cursor:pointer;color:#fff}
+.card .acts .o{background:transparent}
+.card .x{position:absolute;right:12px;top:12px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:transparent;cursor:pointer}
+.tip{position:fixed;z-index:8;pointer-events:none;background:var(--violet);padding:4px 10px;border-radius:8px;font:500 12px var(--mono);opacity:0;transition:opacity .12s;white-space:nowrap;translate:-50% -140%}
+@media (max-width:860px){
+  .layers{display:none}
+  .title{max-width:calc(100vw - 32px)}.title p{display:none}
+  .stats{display:none}
+  .card{left:12px;right:12px;width:auto;max-height:46vh}
+  .drag-hint{display:none}
 }
-
-@layer components {
-  .section-title {
-    @apply text-3xl font-bold mb-12 relative;
-  }
-}
-
-@layer utilities {
-  .animation-delay-300 {
-    animation-delay: 300ms;
-  }
-
-  .animation-delay-700 {
-    animation-delay: 700ms;
-  }
-
-  /* Animation classes */
-  .fade-in-up {
-    animation: fadeInUp 1s ease forwards;
-  }
-
-  .fade-in-right {
-    animation: fadeInRight 1s ease forwards;
-  }
-
-  .fade-in-left {
-    animation: fadeInLeft 1s ease forwards;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes fadeInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.card .items{display:grid;gap:10px;margin-top:12px}.card .items b{font-weight:600}.card .items span{display:block;color:var(--mute);font-size:13px}
+.card .acts a.o{color:#fff}
 
