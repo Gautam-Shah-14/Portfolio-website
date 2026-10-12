@@ -8,7 +8,7 @@ The portfolio is an explorable 3D neural network. Education feeds experience, ex
 
 ## Features
 
-- Five layers (education, experience, skills, projects, contact) with weighted edges and travelling signal pulses
+- Five layers (education, experience, skills, projects, contact) connected layer to layer, with travelling signal pulses
 - Hover a node to light its connections, click it to read its details
 - Run inference: a wave activates the layers while a loss counter falls
 - Layer navigation, drag to rotate with momentum
